@@ -12,6 +12,6 @@ Handlers.GameClient = app.Services.GetRequiredService<IGameClient>();
 app.MapGet("/", Handlers.Default);
 var startGameEndpoint = app.MapGet("/games/{language}/{questionSelectionStrategy}", Handlers.StartGame);
 
-// Startup.RequireAuthorization(new[] { startGameEndpoint });
+Startup.RequireAuthorization(new[] { startGameEndpoint });
 
 app.Run();

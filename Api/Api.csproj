@@ -6,7 +6,7 @@
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>GetProducts</RootNamespace>
+    <RootNamespace>Api</RootNamespace>
     <AssemblyName>bootstrap</AssemblyName>
   </PropertyGroup>
 

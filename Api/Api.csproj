@@ -43,6 +43,7 @@
     <TrimmerRootAssembly Include="Dnw.OneForTwelve.Core" />
     <TrimmerRootAssembly Include="CsvHelper" />
     <TrimmerRootAssembly Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <TrimmerRootAssembly Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" />
   </ItemGroup>
   
   <ItemGroup>

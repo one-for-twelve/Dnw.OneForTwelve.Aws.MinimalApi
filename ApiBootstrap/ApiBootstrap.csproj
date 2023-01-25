@@ -41,6 +41,7 @@
     <TrimmerRootAssembly Include="Amazon.Lambda.AspNetCoreServer.Hosting" />
     <TrimmerRootAssembly Include="Amazon.Lambda.AspNetCoreServer" />
     <TrimmerRootAssembly Include="Dnw.OneForTwelve.Core" />
+    <TrimmerRootAssembly Include="CsvHelper" />
   </ItemGroup>
   
   <ItemGroup>

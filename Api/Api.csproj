@@ -42,6 +42,7 @@
     <TrimmerRootAssembly Include="Amazon.Lambda.AspNetCoreServer" />
     <TrimmerRootAssembly Include="Dnw.OneForTwelve.Core" />
     <TrimmerRootAssembly Include="CsvHelper" />
+    <TrimmerRootAssembly Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
   </ItemGroup>
   
   <ItemGroup>

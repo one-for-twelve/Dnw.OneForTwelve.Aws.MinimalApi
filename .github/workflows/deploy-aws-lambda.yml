@@ -25,7 +25,7 @@ jobs:
       - name: Deploy to Lambda
         run: |
           dotnet lambda deploy-serverless \
-            --template template.yml \
+            --template template.yaml \
             --stack-name $AWS_STACK_NAME \
             --s3-bucket $AWS_S3_BUCKET \
             --region $AWS_REGION

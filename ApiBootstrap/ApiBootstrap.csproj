@@ -40,6 +40,7 @@
     <TrimmerRootAssembly Include="Shared" />
     <TrimmerRootAssembly Include="Amazon.Lambda.AspNetCoreServer.Hosting" />
     <TrimmerRootAssembly Include="Amazon.Lambda.AspNetCoreServer" />
+    <TrimmerRootAssembly Include="Dnw.OneForTwelve.Core" />
   </ItemGroup>
   
   <ItemGroup>

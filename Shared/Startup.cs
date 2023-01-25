@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using Amazon.Lambda.Serialization.SystemTextJson;
+﻿using Amazon.Lambda.Serialization.SystemTextJson;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

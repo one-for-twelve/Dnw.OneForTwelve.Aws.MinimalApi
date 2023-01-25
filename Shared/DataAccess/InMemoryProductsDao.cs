@@ -4,7 +4,10 @@ namespace Shared.DataAccess;
 
 public class InMemoryProductsDao : IProductsDao
 {
-    private static readonly Dictionary<string, Product> Products = new();
+    private static readonly Dictionary<string, Product> Products = new()
+    {
+        { "1", new Product("1", "Product1", 10.99m) }
+    };
 
     public Task<Product?> GetProduct(string id)
     {

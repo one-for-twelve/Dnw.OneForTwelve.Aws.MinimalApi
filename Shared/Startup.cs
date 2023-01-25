@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Shared.Clients;
+using Shared.Extensions;
 
 namespace Shared
 {
@@ -13,7 +14,7 @@ namespace Shared
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddFirebaseAuth();
+            builder.Services.DoAddFirebaseAuth();
                         
             builder.Services.ConfigureHttpJsonOptions(options =>
             {

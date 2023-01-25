@@ -1,8 +1,9 @@
 ﻿using Amazon.Lambda.Serialization.SystemTextJson;
+using Dnw.OneForTwelve.Core.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Shared.DataAccess;
+using Shared.Clients;
 
 namespace Shared
 {
@@ -11,14 +12,17 @@ namespace Shared
         public static WebApplication Build(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            
+
+            builder.Services.AddFirebaseAuth();
+                        
             builder.Services.ConfigureHttpJsonOptions(options =>
             {
                 options.SerializerOptions.AddContext<ApiSerializerContext>();
             });
-
-            builder.Services.AddSingleton<IProductsDao, InMemoryProductsDao>();
-
+            
+            builder.Services.AddGameServices();
+            builder.Services.AddSingleton<IGameClient, GameClient>();
+            
             builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi, options =>
             {
                 options.Serializer = new SourceGeneratorLambdaJsonSerializer<ApiSerializerContext>();
@@ -37,6 +41,14 @@ namespace Shared
             // Add generic app configuration here.
 
             return app;
+        }
+        
+        public static void RequireAuthorization(IEnumerable<IEndpointConventionBuilder> endpointBuilders)
+        {
+            foreach (var endpointBuilder in endpointBuilders)
+            {
+                endpointBuilder.RequireAuthorization();
+            }
         }
     }
 }

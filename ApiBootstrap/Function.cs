@@ -1,118 +1,58 @@
 using System.Net;
 using System.Text.Json;
+using Dnw.OneForTwelve.Core.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Shared;
-using Shared.DataAccess;
+using Shared.Clients;
 
 var app = Startup.Build(args);
 
-Handlers.DataAccess = app.Services.GetRequiredService<IProductsDao>();
 Handlers.Logger = app.Logger;
+Handlers.GameClient = app.Services.GetRequiredService<IGameClient>();
 
-app.MapGet("/", Handlers.GetAllProducts);
+app.MapGet("/", Handlers.Default);
+app.MapGet("/games/{language}/{questionSelectionStrategy}", Handlers.StartGame);
 
-app.MapDelete("/{id}", Handlers.DeleteProduct);
-
-app.MapPut("/{id}", Handlers.PutProduct);
-
-app.MapGet("/{id}", Handlers.GetProduct);
+// Startup.RequireAuthorization(new[] { startGameEndpoint });
 
 app.Run();
 
 static class Handlers
 {
-    internal static IProductsDao? DataAccess;
     internal static ILogger? Logger;
-    
-    public static async Task GetAllProducts(HttpContext context)
+    internal static IGameClient? GameClient;
+
+    public static async Task Default(HttpContext context)
     {
-        Logger?.LogInformation("Received request to list all products");
-
-        var products = await DataAccess!.GetAllProducts();
-
-        Logger?.LogInformation($"Found {products.Products.Count} products(s)");
-
-        await context.WriteResponse(HttpStatusCode.OK, products);
-    }
-
-    public static async Task DeleteProduct(HttpContext context)
-    {
-        try
-        {
-            var id = context.Request.RouteValues["id"]?.ToString()!;
-            
-            Logger?.LogInformation($"Received request to delete {id}");
-
-            var product = await DataAccess!.GetProduct(id);
-
-            if (product == null)
-            {
-                Logger?.LogWarning($"Id {id} not found.");
-
-                await context.WriteResponse(HttpStatusCode.NotFound);
-                
-                return;
-            }
-
-            Logger?.LogInformation($"Deleting {product.Name}");
-
-            await DataAccess.DeleteProduct(product.Id);
-
-            Logger?.LogInformation("Delete complete");
+        var userName = context.User.Identity?.Name ?? "anonymous";
+        var architecture = System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture;
+        var dotnetVersion = Environment.Version.ToString();
+        var body = $"Username: {userName}, Env: {Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}, Architecture: {architecture}, .NET Version: {dotnetVersion}";
         
-            await context.WriteResponse(HttpStatusCode.OK, $"Product with id {id} deleted");
-        }
-        catch (Exception e)
-        {
-            Logger?.LogError(e, "Failure deleting product");
-
-            await context.WriteResponse(HttpStatusCode.BadRequest);
-        }
-    }
-
-    public static async Task GetProduct(HttpContext context)
-    {
-        var id = context.Request.RouteValues["id"]?.ToString()!;
-        
-        Logger?.LogInformation($"Received request to get {id}");
-
-        var product = await DataAccess!.GetProduct(id);
-
-        if (product == null)
-        {
-            Logger?.LogWarning($"{id} not found");
-            await context.WriteResponse(HttpStatusCode.NotFound, $"{id} not found");
-        }
-
-        await context.WriteResponse(HttpStatusCode.OK, product!);
+        await context.WriteResponse(HttpStatusCode.OK, body);
     }
     
-    public static async Task PutProduct(HttpContext context)
+    public static async Task StartGame(HttpContext context)
     {
-        var id = context.Request.RouteValues["id"]?.ToString();
-        var product = await JsonSerializer.DeserializeAsync(context.Request.Body, ApiSerializerContext.Default.Product);
+        var languageAsString = context.Request.RouteValues["language"]?.ToString()!;
+        var strategyAsString = context.Request.RouteValues["questionSelectionStrategy"]?.ToString()!;
+
+        var language = Enum.Parse<Languages>(languageAsString);
+        var strategy = Enum.Parse<QuestionSelectionStrategies>(strategyAsString);
         
-        if (product == null || id != product.Id)
-        {
-            await context.WriteResponse(HttpStatusCode.BadRequest, "Product ID in the body does not match path parameter");
-        }
-
-        await DataAccess!.PutProduct(product!);
-
-        await context.WriteResponse(HttpStatusCode.OK, $"Created product with id {id}");
+        var game = GameClient!.Start(language, strategy)!;
+        
+        Logger?.LogInformation($"Game started: {game.Word}");
+        
+        await context.WriteResponse(HttpStatusCode.OK, game);
     }
 }
 
-static class ResponseWriter
+internal static class ResponseWriter
 {
-    public static async Task WriteResponse(this HttpContext context, HttpStatusCode statusCode)
-    {
-        await context.WriteResponse<string>(statusCode, "");
-    }
-    
     public static async Task WriteResponse<TResponseType>(this HttpContext context, HttpStatusCode statusCode, TResponseType body) where TResponseType : class
     {
         context.Response.StatusCode = (int)statusCode;

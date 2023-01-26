@@ -14,7 +14,7 @@ namespace Shared
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.DoAddFirebaseAuth();
+            //builder.Services.DoAddFirebaseAuth();
                         
             builder.Services.ConfigureHttpJsonOptions(options =>
             {

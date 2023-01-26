@@ -78,41 +78,41 @@ internal static class Handlers
             }
         }
         
-        // try
-        // {
-        //     var tokenValidationParams = new TokenValidationParameters
-        //     {
-        //         ValidateIssuer = true,
-        //         ValidIssuer = authority,
-        //         
-        //         ValidateAudience = true,
-        //         ValidAudience = "one-for-twelve-32778",
-        //         
-        //         ValidateIssuerSigningKey = true,
-        //         IssuerSigningKeys = new [] { SecurityKeysByKid[kid] },
-        //         
-        //         ValidateLifetime = true
-        //     };
-        //     var jsonWebTokenHandler = new JsonWebTokenHandler();
-        //     var tokenValidationResult = jsonWebTokenHandler.ValidateToken(token, tokenValidationParams);
-        //     if (!tokenValidationResult.IsValid)
-        //     {
-        //         // Handle each exception which tokenValidationResult can contain as appropriate for your service
-        //         // Your service might need to respond with a http response instead of an exception.
-        //         if (tokenValidationResult.Exception != null)
-        //             throw tokenValidationResult.Exception;
-        //
-        //         throw new ApplicationException("Token Validation Failed");
-        //     }
-        //     
-        //     var uid = tokenValidationResult.ClaimsIdentity.Name;
-        //     Logger?.LogInformation("{uid}", uid);
-        // }
-        // catch (Exception ex)
-        // {
-        //     Logger?.LogError(ex, "{message}", ex.Message);
-        //     throw;
-        // }
+        try
+        {
+            var tokenValidationParams = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidIssuer = authority,
+                
+                ValidateAudience = true,
+                ValidAudience = "one-for-twelve-32778",
+                
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKeys = new [] { SecurityKeysByKid[kid] },
+                
+                ValidateLifetime = true
+            };
+            var jsonWebTokenHandler = new JsonWebTokenHandler();
+            var tokenValidationResult = jsonWebTokenHandler.ValidateToken(token, tokenValidationParams);
+            if (!tokenValidationResult.IsValid)
+            {
+                // Handle each exception which tokenValidationResult can contain as appropriate for your service
+                // Your service might need to respond with a http response instead of an exception.
+                if (tokenValidationResult.Exception != null)
+                    throw tokenValidationResult.Exception;
+        
+                throw new ApplicationException("Token Validation Failed");
+            }
+            
+            var uid = tokenValidationResult.ClaimsIdentity.Name;
+            Logger?.LogInformation("{uid}", uid);
+        }
+        catch (Exception ex)
+        {
+            Logger?.LogError(ex, "{message}", ex.Message);
+            throw;
+        }
 
         var languageAsString = context.Request.RouteValues["language"]?.ToString()!;
         var strategyAsString = context.Request.RouteValues["questionSelectionStrategy"]?.ToString()!;

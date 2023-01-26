@@ -19,7 +19,7 @@
     <StripSymbols>true</StripSymbols>
     <!-- TrimMode partial will only trim assemblies marked as trimmable. To reduce package size make all assemblies trimmable and set TrimMode to full.
     If there are trim warnings during build, you can hit errors at runtime.-->
-    <TrimMode>partial</TrimMode>
+    <TrimMode>full</TrimMode>
   </PropertyGroup>
   
   <ItemGroup>
@@ -33,6 +33,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <TrimmerRootAssembly Include="FirebaseAdmin" />
     <TrimmerRootAssembly Include="AWSSDK.Core" />
     <TrimmerRootAssembly Include="AWSSDK.DynamoDBv2" />
     <TrimmerRootAssembly Include="AWSXRayRecorder.Core" />

@@ -33,7 +33,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <TrimmerRootAssembly Include="FirebaseAdmin" />
     <TrimmerRootAssembly Include="AWSSDK.Core" />
     <TrimmerRootAssembly Include="AWSSDK.DynamoDBv2" />
     <TrimmerRootAssembly Include="AWSXRayRecorder.Core" />

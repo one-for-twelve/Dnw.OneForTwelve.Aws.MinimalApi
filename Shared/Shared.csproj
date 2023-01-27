@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer.Hosting" Version="1.5.0" />
-    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.101.31" />
     <PackageReference Include="Dnw.OneForTwelve.Core" Version="0.0.4" />
   </ItemGroup>
 

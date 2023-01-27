@@ -34,29 +34,15 @@
   
   <ItemGroup>
     <TrimmerRootAssembly Include="AWSSDK.Core" />
-    <TrimmerRootAssembly Include="AWSSDK.DynamoDBv2" />
     <TrimmerRootAssembly Include="AWSXRayRecorder.Core" />
     <TrimmerRootAssembly Include="AWSXRayRecorder.Handlers.AwsSdk" />
-    <TrimmerRootAssembly Include="Shared" />
     <TrimmerRootAssembly Include="Amazon.Lambda.AspNetCoreServer.Hosting" />
     <TrimmerRootAssembly Include="Amazon.Lambda.AspNetCoreServer" />
+
+    <TrimmerRootAssembly Include="Shared" />
+    
     <TrimmerRootAssembly Include="Dnw.OneForTwelve.Core" />
     <TrimmerRootAssembly Include="CsvHelper" />
-    <TrimmerRootAssembly Include="Microsoft.AspNetCore.Authentication" />
-    <TrimmerRootAssembly Include="Microsoft.AspNetCore.Authentication.Abstractions" />
-    <TrimmerRootAssembly Include="Microsoft.AspNetCore.Authentication.Core" />
-    <TrimmerRootAssembly Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
-    <TrimmerRootAssembly Include="Microsoft.AspNetCore.Authentication.OAuth" />
-    <TrimmerRootAssembly Include="Microsoft.AspNetCore.Authorization" />
-    <TrimmerRootAssembly Include="Microsoft.AspNetCore.Authorization.Policy" />
-    <TrimmerRootAssembly Include="Microsoft.AspNetCore.Components" />
-    <TrimmerRootAssembly Include="Microsoft.AspNetCore.Components.Authorization" />
-    <TrimmerRootAssembly Include="Microsoft.IdentityModel.JsonWebTokens" />
-    <TrimmerRootAssembly Include="Microsoft.IdentityModel.Logging" />
-    <TrimmerRootAssembly Include="Microsoft.IdentityModel.Protocols" />
-    <TrimmerRootAssembly Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" />
-    <TrimmerRootAssembly Include="Microsoft.IdentityModel.Tokens" />
-    <TrimmerRootAssembly Include="System.Runtime.Serialization.Json" />
   </ItemGroup>
   
   <ItemGroup>

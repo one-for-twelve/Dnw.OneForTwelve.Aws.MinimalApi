@@ -1,6 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using Amazon.Lambda.APIGatewayEvents;
 using Dnw.OneForTwelve.Core.Models;
+using Shared.JwtModels;
 
 namespace Shared;
 
@@ -8,10 +9,10 @@ namespace Shared;
 [JsonSerializable(typeof(APIGatewayHttpApiV2ProxyRequest))]
 [JsonSerializable(typeof(APIGatewayHttpApiV2ProxyResponse))]
 [JsonSerializable(typeof(Game))]
-[JsonSerializable(typeof(OidcConfigCustom))]
-[JsonSerializable(typeof(JsonWebKeySetCustom))]
-[JsonSerializable(typeof(JsonWebKeyCustom))]
-[JsonSerializable(typeof(JsonWebHeader))]
+[JsonSerializable(typeof(OidcJwtSigningKeysConfig))]
+[JsonSerializable(typeof(JwtSigningKeySet))]
+[JsonSerializable(typeof(JwtSigningKey))]
+[JsonSerializable(typeof(JwtHeader))]
 public partial class ApiSerializerContext : JsonSerializerContext
 {
 }

@@ -42,7 +42,6 @@
     <TrimmerRootAssembly Include="Shared" />
     
     <TrimmerRootAssembly Include="Dnw.OneForTwelve.Core" />
-    <TrimmerRootAssembly Include="CsvHelper" />
   </ItemGroup>
   
   <ItemGroup>
